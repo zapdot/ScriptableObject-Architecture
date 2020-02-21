@@ -5,5 +5,5 @@
     {
         public DoubleReference() : base() { }
         public DoubleReference(double value) : base(value) { }
-    } 
+    }
 }

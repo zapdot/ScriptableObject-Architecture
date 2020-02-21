@@ -8,5 +8,5 @@ namespace ScriptableObjectArchitecture
     /// </summary>
     public abstract class SOArchitectureBaseObject : ScriptableObject
     {
-    } 
+    }
 }

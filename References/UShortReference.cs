@@ -5,5 +5,5 @@
     {
         public UShortReference() : base() { }
         public UShortReference(ushort value) : base(value) { }
-    } 
+    }
 }

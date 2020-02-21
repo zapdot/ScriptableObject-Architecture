@@ -5,5 +5,5 @@
     {
         public ULongReference() : base() { }
         public ULongReference(ulong value) : base(value) { }
-    } 
+    }
 }

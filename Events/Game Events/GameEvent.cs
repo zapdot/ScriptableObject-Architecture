@@ -8,5 +8,5 @@ namespace ScriptableObjectArchitecture
         order = SOArchitecture_Utility.ASSET_MENU_ORDER_EVENTS - 1)]
     public sealed class GameEvent : GameEventBase
     {
-    } 
+    }
 }

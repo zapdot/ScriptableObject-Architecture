@@ -15,5 +15,5 @@ namespace ScriptableObjectArchitecture.Editor
                 Target.Raise();
             }
         }
-    } 
+    }
 }

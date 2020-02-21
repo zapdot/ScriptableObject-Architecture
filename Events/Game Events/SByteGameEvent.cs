@@ -9,5 +9,5 @@ namespace ScriptableObjectArchitecture
         order = SOArchitecture_Utility.ASSET_MENU_ORDER_EVENTS + 15)]
     public sealed class SByteGameEvent : GameEventBase<sbyte>
     {
-    } 
+    }
 }

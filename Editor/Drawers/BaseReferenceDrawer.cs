@@ -42,14 +42,14 @@ namespace ScriptableObjectArchitecture.Editor
             useConstant = property.FindPropertyRelative("_useConstant");
             constantValue = property.FindPropertyRelative("_constantValue");
             variable = property.FindPropertyRelative("_variable");
-                        
+
             int oldIndent = ResetIndent();
 
             Rect fieldRect = DrawLabel(position, property, label);
             DrawField(position, fieldRect);
 
             EndIndent(oldIndent);
-            
+
             property.serializedObject.ApplyModifiedProperties();
         }
         private Rect DrawLabel(Rect position, SerializedProperty property, GUIContent label)
@@ -143,7 +143,7 @@ namespace ScriptableObjectArchitecture.Editor
 
             return buttonRect;
         }
-        
+
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
         {
             if (SupportsMultiLine)
@@ -161,7 +161,7 @@ namespace ScriptableObjectArchitecture.Editor
                 return base.GetPropertyHeight(property, label);
             }
         }
-        
+
         static class Styles
         {
             static Styles()

@@ -15,6 +15,7 @@ namespace ScriptableObjectArchitecture
                 _frameCount = Time.frameCount;
             }
         }
+
         private StackTraceEntry(string trace, object value)
         {
             _value = value;
@@ -38,10 +39,12 @@ namespace ScriptableObjectArchitecture
         {
             return new StackTraceEntry(Environment.StackTrace, obj);
         }
+
         public static StackTraceEntry Create()
         {
             return new StackTraceEntry(Environment.StackTrace);
         }
+
         public override bool Equals(object obj)
         {
             if (obj == null)
@@ -54,19 +57,26 @@ namespace ScriptableObjectArchitecture
 
             return false;
         }
+
         public bool Equals(StackTraceEntry other)
         {
             return other._id == this._id;
         }
+
         public override int GetHashCode()
         {
             return _id;
         }
+
         public override string ToString()
         {
             if (_constructedWithValue)
             {
-                return string.Format("{1}   [{0}] {2}", _value == null ? "null" : _value.ToString(), _frameCount, _stackTrace);
+                return string.Format(
+                    "{1}   [{0}] {2}",
+                    _value == null ? "null" : _value.ToString(),
+                    _frameCount,
+                    _stackTrace);
             }
             else
             {

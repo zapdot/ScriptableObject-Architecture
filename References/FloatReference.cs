@@ -5,5 +5,5 @@
     {
         public FloatReference() : base() { }
         public FloatReference(float value) : base(value) { }
-    } 
+    }
 }

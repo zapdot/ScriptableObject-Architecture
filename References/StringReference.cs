@@ -5,5 +5,5 @@
     {
         public StringReference() : base() { }
         public StringReference(string value) : base(value) { }
-    } 
+    }
 }

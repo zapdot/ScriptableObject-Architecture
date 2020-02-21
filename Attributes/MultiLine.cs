@@ -1,6 +1,6 @@
 ﻿using System;
 
 [AttributeUsage(AttributeTargets.Class)]
-public class MultiLine : Attribute
+public sealed class MultiLine : Attribute
 {
 }

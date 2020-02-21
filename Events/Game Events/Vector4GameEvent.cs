@@ -9,5 +9,5 @@ namespace ScriptableObjectArchitecture
         order = SOArchitecture_Utility.ASSET_MENU_ORDER_EVENTS + 12)]
     public sealed class Vector4GameEvent : GameEventBase<Vector4>
     {
-    } 
+    }
 }

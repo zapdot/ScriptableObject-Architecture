@@ -9,5 +9,5 @@ namespace ScriptableObjectArchitecture
         order = 120)]
     public sealed class GameObjectGameEvent : GameEventBase<GameObject>
     {
-    } 
+    }
 }

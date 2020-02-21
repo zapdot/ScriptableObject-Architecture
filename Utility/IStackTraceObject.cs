@@ -8,5 +8,5 @@ namespace ScriptableObjectArchitecture
 
         void AddStackTrace();
         void AddStackTrace(object value);
-    } 
+    }
 }

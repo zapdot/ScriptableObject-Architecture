@@ -78,9 +78,9 @@ namespace ScriptableObjectArchitecture.Editor
                         EditorGUILayout.PropertyField(_minValueProperty);
                         EditorGUILayout.PropertyField(_maxValueProperty);
                     }
-                }                
+                }
             }
-            
+
         }
         protected void DrawReadonlyField()
         {
@@ -99,6 +99,20 @@ namespace ScriptableObjectArchitecture.Editor
                     EditorGUI.indentLevel--;
                 }
             }
+        }
+    }
+    [CustomEditor(typeof(BaseVariable<,>), true)]
+    public class BaseVariableWithEventEditor : BaseVariableEditor
+    {
+        public override void OnInspectorGUI()
+        {
+            base.OnInspectorGUI();
+
+            EditorGUILayout.Space();
+
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("_event"));
+
+            serializedObject.ApplyModifiedProperties();
         }
     }
 }

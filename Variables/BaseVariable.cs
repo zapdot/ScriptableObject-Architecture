@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Events;
 
 namespace ScriptableObjectArchitecture
 {
@@ -82,7 +83,11 @@ namespace ScriptableObjectArchitecture
         protected T _minClampedValue = default(T);
         [SerializeField]
         protected T _maxClampedValue = default(T);
-        
+
+        public virtual T SetValue(BaseVariable<T> value)
+        {
+            return SetValue(value.Value);
+        }
         public virtual T SetValue(T value)
         {
             if (_readOnly)
@@ -96,20 +101,6 @@ namespace ScriptableObjectArchitecture
             }
 
             return value;
-        }
-        public virtual T SetValue(BaseVariable<T> value)
-        {
-            if (_readOnly)
-            {
-                RaiseReadonlyWarning();
-                return _value;
-            }
-            else if (Clampable && IsClamped)
-            {
-                return ClampValue(value.Value);
-            }
-
-            return value.Value;
         }
         protected virtual T ClampValue(T value)
         {
@@ -130,5 +121,34 @@ namespace ScriptableObjectArchitecture
         {
             return variable.Value;
         }
-    } 
+    }
+    public abstract class BaseVariable<T, TEvent> : BaseVariable<T> where TEvent : UnityEvent<T>
+    {
+        [SerializeField]
+        private TEvent _event = default;
+
+        public override T SetValue(T value)
+        {
+            T oldValue = _value;
+            T newValue = base.SetValue(value);
+
+            if (!newValue.Equals(oldValue))
+                _event.Invoke(newValue);
+
+            return newValue;
+        }
+        public void AddListener(UnityAction<T> callback)
+        {
+            _event.AddListener(callback);
+        }
+        public void RemoveListener(UnityAction<T> callback)
+        {
+            _event.RemoveListener(callback);
+        }
+        public override void RemoveAll()
+        {
+            base.RemoveAll();
+            _event.RemoveAllListeners();
+        }
+    }
 }

@@ -3,9 +3,9 @@
 namespace ScriptableObjectArchitecture
 {
     [System.Serializable]
-    public class ObjectReference : BaseReference<Object, ObjectVariable>
+    public sealed class ObjectReference : BaseReference<Object, ObjectVariable>
     {
         public ObjectReference() : base() { }
         public ObjectReference(Object value) : base(value) { }
-    } 
+    }
 }

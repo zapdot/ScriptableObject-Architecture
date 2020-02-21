@@ -5,5 +5,5 @@
     {
         public IntReference() : base() { }
         public IntReference(int value) : base(value) { }
-    } 
+    }
 }

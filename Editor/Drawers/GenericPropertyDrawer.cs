@@ -42,7 +42,7 @@ namespace ScriptableObjectArchitecture.Editor
                 EditorGUI.LabelField(rect, errorLabel);
             }
         }
-        
+
         public static void DrawPropertyDrawerLayout(Type type, GUIContent label, SerializedProperty property, GUIContent errorLabel)
         {
             if (SOArchitecture_EditorUtility.HasPropertyDrawer(type) || typeof(Object).IsAssignableFrom(type) || type.IsEnum)
