@@ -66,18 +66,26 @@ namespace ScriptableObjectArchitecture.Editor
             if (!IsClampable)
                 return;
 
-            EditorGUILayout.PropertyField(_isClamped);
-            _isClampedVariableAnimation.target = _isClamped.boolValue;
-
-            using (var anim = new EditorGUILayout.FadeGroupScope(_isClampedVariableAnimation.faded))
+            using (var scope = new EditorGUI.ChangeCheckScope())
             {
-                if(anim.visible)
+                EditorGUILayout.PropertyField(_isClamped);
+                _isClampedVariableAnimation.target = _isClamped.boolValue;
+
+                using (var anim = new EditorGUILayout.FadeGroupScope(_isClampedVariableAnimation.faded))
                 {
-                    using (new EditorGUI.IndentLevelScope())
+                    if (anim.visible)
                     {
-                        EditorGUILayout.PropertyField(_minValueProperty);
-                        EditorGUILayout.PropertyField(_maxValueProperty);
+                        using (new EditorGUI.IndentLevelScope())
+                        {
+                            EditorGUILayout.PropertyField(_minValueProperty);
+                            EditorGUILayout.PropertyField(_maxValueProperty);
+                        }
                     }
+                }
+
+                if (scope.changed)
+                {
+                    serializedObject.ApplyModifiedProperties();
                 }
             }
 
@@ -87,16 +95,24 @@ namespace ScriptableObjectArchitecture.Editor
             if (IsClampable)
                 return;
 
-            EditorGUILayout.PropertyField(_readOnly, new GUIContent("Read Only", READONLY_TOOLTIP));
-
-            _raiseWarningAnimation.target = _readOnly.boolValue;
-            using (var fadeGroup = new EditorGUILayout.FadeGroupScope(_raiseWarningAnimation.faded))
+            using (var scope = new EditorGUI.ChangeCheckScope())
             {
-                if (fadeGroup.visible)
+                EditorGUILayout.PropertyField(_readOnly, new GUIContent("Read Only", READONLY_TOOLTIP));
+
+                _raiseWarningAnimation.target = _readOnly.boolValue;
+                using (var fadeGroup = new EditorGUILayout.FadeGroupScope(_raiseWarningAnimation.faded))
                 {
-                    EditorGUI.indentLevel++;
-                    EditorGUILayout.PropertyField(_raiseWarning);
-                    EditorGUI.indentLevel--;
+                    if (fadeGroup.visible)
+                    {
+                        EditorGUI.indentLevel++;
+                        EditorGUILayout.PropertyField(_raiseWarning);
+                        EditorGUI.indentLevel--;
+                    }
+                }
+
+                if (scope.changed)
+                {
+                    serializedObject.ApplyModifiedProperties();
                 }
             }
         }
