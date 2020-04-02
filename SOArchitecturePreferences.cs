@@ -17,7 +17,16 @@ namespace ScriptableObjectArchitecture
         /// </summary>
         public static bool IsDebugEnabled
         {
-            get { return GetBoolPref(ENABLE_DEBUG_PREF, ENABLE_DEBUG_DEFAULT); }
+
+            get
+            {
+                if (!_isDebugEnabled.HasValue)
+                {
+                    _isDebugEnabled = GetBoolPref(ENABLE_DEBUG_PREF, ENABLE_DEBUG_DEFAULT);
+                }
+
+                return _isDebugEnabled.Value;
+            }
         }
 
         /// <summary>
@@ -25,8 +34,19 @@ namespace ScriptableObjectArchitecture
         /// </summary>
         public static bool AreGizmosEnabled
         {
-            get { return GetBoolPref(DRAW_EVENT_GIZMOS_PREF, DRAW_EVENT_GIZMOS_DEFAULT); }
+            get
+            {
+                if(!_areGizmosEnabled.HasValue)
+                {
+                    _areGizmosEnabled = GetBoolPref(DRAW_EVENT_GIZMOS_PREF, DRAW_EVENT_GIZMOS_DEFAULT);
+                }
+
+                return _areGizmosEnabled.Value;
+            }
         }
+
+        private static bool? _isDebugEnabled;
+        private static bool? _areGizmosEnabled;
 
         // UI
         private const string PREFERENCES_TITLE_PATH = "Preferences/SOArchitecture";
@@ -149,6 +169,7 @@ namespace ScriptableObjectArchitecture
             drawEventPref = EditorGUILayout.Toggle("Draw Event Gizmo", drawEventPref);
             if (GUI.changed)
             {
+                _areGizmosEnabled = drawEventPref;
                 EditorPrefs.SetBool(DRAW_EVENT_GIZMOS_PREF, drawEventPref);
             }
 
@@ -162,6 +183,7 @@ namespace ScriptableObjectArchitecture
             enableDebugPref = EditorGUILayout.Toggle("Enable Debug", enableDebugPref);
             if (GUI.changed)
             {
+                _isDebugEnabled = enableDebugPref;
                 EditorPrefs.SetBool(ENABLE_DEBUG_PREF, enableDebugPref);
             }
         }
