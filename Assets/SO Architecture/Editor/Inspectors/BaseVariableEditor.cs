@@ -19,7 +19,7 @@ namespace ScriptableObjectArchitecture.Editor
         private SerializedProperty _maxValueProperty;
         private AnimBool _raiseWarningAnimation;
         private AnimBool _isClampedVariableAnimation;
-        
+
         private const string READONLY_TOOLTIP = "Should this value be changable during runtime? Will still be editable in the inspector regardless";
 
         protected virtual void OnEnable()
@@ -42,15 +42,32 @@ namespace ScriptableObjectArchitecture.Editor
             serializedObject.Update();
 
             DrawValue();
-
-            EditorGUILayout.Space();
-
             DrawClampedFields();
             DrawReadonlyField();
         }
         protected virtual void DrawValue()
         {
-            GenericPropertyDrawer.DrawPropertyDrawerLayout(_valueProperty, Target.Type);
+            using (var scope = new EditorGUI.ChangeCheckScope())
+            {
+                // If clamped and we can draw better clamp controls for this variable's type, do so. Otherwise default to showing
+                // the default property drawer for that type.
+                if (_isClamped.boolValue && ClampValueHelper.CanDrawClampRange(_valueProperty))
+                {
+                    ClampValueHelper.DrawClampRangeLayout(_valueProperty, _minValueProperty, _maxValueProperty);
+                }
+                else
+                {
+                    GenericPropertyDrawer.DrawPropertyDrawerLayout(_valueProperty, Target.Type);
+                }
+
+                if (scope.changed)
+                {
+                    serializedObject.ApplyModifiedProperties();
+
+                    // Value changed, raise events
+                    Target.Raise();
+                }
+            }
         }
         protected void DrawClampedFields()
         {
@@ -79,6 +96,7 @@ namespace ScriptableObjectArchitecture.Editor
                     serializedObject.ApplyModifiedProperties();
                 }
             }
+
         }
         protected void DrawReadonlyField()
         {
