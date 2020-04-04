@@ -2,6 +2,11 @@
 using System.Collections.Generic;
 using System.Reflection;
 using UnityEditor;
+using UnityEngine;
+
+#if ODIN_INSPECTOR
+using Sirenix.Utilities.Editor;
+#endif
 
 namespace ScriptableObjectArchitecture.Editor
 {
@@ -45,11 +50,27 @@ namespace ScriptableObjectArchitecture.Editor
 
             if (SUPPORTED_INT_TYPES.Contains(valueType))
             {
+                #if ODIN_INSPECTOR
+                valueProp.intValue = SirenixEditorFields.RangeIntField(
+                    new GUIContent(valueProp.displayName),
+                    valueProp.intValue,
+                    minProp.intValue,
+                    maxProp.intValue);
+                #else
                 EditorGUILayout.IntSlider(valueProp, minProp.intValue, maxProp.intValue);
+                #endif
             }
             else if (SUPPORTED_FLOAT_TYPES.Contains(valueType))
             {
+                #if ODIN_INSPECTOR
+                valueProp.floatValue = SirenixEditorFields.RangeFloatField(
+                    new GUIContent(valueProp.displayName),
+                    valueProp.floatValue,
+                    minProp.floatValue,
+                    maxProp.floatValue);
+                #else
                 EditorGUILayout.Slider(valueProp, minProp.floatValue, maxProp.floatValue);
+                #endif
             }
         }
 
