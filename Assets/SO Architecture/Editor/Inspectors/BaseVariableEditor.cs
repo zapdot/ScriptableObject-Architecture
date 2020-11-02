@@ -69,15 +69,12 @@ namespace ScriptableObjectArchitecture.Editor
                         EditorGUILayout.PropertyField(_minValueProperty);
                         EditorGUILayout.PropertyField(_maxValueProperty);
                     }
-                }                
+                }
             }
-            
+
         }
         protected void DrawReadonlyField()
         {
-            if (IsClampable)
-                return;
-
             EditorGUILayout.PropertyField(_readOnly, new GUIContent("Read Only", READONLY_TOOLTIP));
 
             _raiseWarningAnimation.target = _readOnly.boolValue;
