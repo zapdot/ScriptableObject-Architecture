@@ -19,8 +19,12 @@ namespace ScriptableObjectArchitecture.Editor
         protected readonly SerializedProperty iterator;
         protected readonly SerializedProperty endProperty;
 
+        #pragma warning disable 0414
+
         private bool consumeChildren;
         private int parentDepth;
+
+        #pragma warning restore 0414
 
         public virtual bool Next()
         {
