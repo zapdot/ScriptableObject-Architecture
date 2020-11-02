@@ -4,7 +4,7 @@ using UnityEngine.Events;
 namespace ScriptableObjectArchitecture
 {
     [System.Serializable]
-    public class BoolEvent : UnityEvent<bool> { }
+    public sealed class BoolEvent : UnityEvent<bool> { }
 
     [CreateAssetMenu(
         fileName = "BoolVariable.asset",

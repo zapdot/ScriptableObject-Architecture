@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace ScriptableObjectArchitecture
 {
-    public class StackTraceEntry : IEquatable<StackTraceEntry>
+    public sealed class StackTraceEntry : IEquatable<StackTraceEntry>
     {
         private StackTraceEntry(string trace)
         {

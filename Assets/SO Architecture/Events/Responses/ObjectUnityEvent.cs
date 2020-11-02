@@ -4,7 +4,7 @@ using UnityEngine.Events;
 namespace ScriptableObjectArchitecture
 {
     [System.Serializable]
-    public class ObjectUnityEvent : UnityEvent<Object>
+    public sealed class ObjectUnityEvent : UnityEvent<Object>
     {
-    } 
+    }
 }

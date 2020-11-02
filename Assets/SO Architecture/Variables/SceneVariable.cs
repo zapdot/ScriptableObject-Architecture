@@ -5,7 +5,7 @@ using UnityEngine.Events;
 namespace ScriptableObjectArchitecture
 {
     [System.Serializable]
-    public class SceneInfoEvent : UnityEvent<SceneInfo> { }
+    public sealed class SceneInfoEvent : UnityEvent<SceneInfo> { }
 
     /// <summary>
     /// <see cref="SceneVariable"/> is a scriptable constant variable whose scene values are assigned at

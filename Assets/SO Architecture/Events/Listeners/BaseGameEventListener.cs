@@ -295,5 +295,5 @@ where TResponse : UnityEvent<TType>
             public string FunctionName;
         }
 #endif
-    } 
+    }
 }

@@ -4,13 +4,13 @@ using UnityEngine.Events;
 namespace ScriptableObjectArchitecture
 {
     [System.Serializable]
-    public class FloatEvent : UnityEvent<float> { }
+    public sealed class FloatEvent : UnityEvent<float> { }
 
     [CreateAssetMenu(
         fileName = "FloatVariable.asset",
         menuName = SOArchitecture_Utility.VARIABLE_SUBMENU + "float",
         order = SOArchitecture_Utility.ASSET_MENU_ORDER_COLLECTIONS + 3)]
-    public class FloatVariable : BaseVariable<float, FloatEvent>
+    public sealed class FloatVariable : BaseVariable<float, FloatEvent>
     {
         public override bool Clampable { get { return true; } }
         protected override float ClampValue(float value)
@@ -28,5 +28,5 @@ namespace ScriptableObjectArchitecture
                 return value;
             }
         }
-    } 
+    }
 }
