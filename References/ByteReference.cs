@@ -5,5 +5,5 @@
     {
         public ByteReference() : base() { }
         public ByteReference(byte value) : base(value) { }
-    }
+    } 
 }

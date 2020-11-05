@@ -7,5 +7,5 @@ namespace ScriptableObjectArchitecture
     {
         public QuaternionReference() : base() { }
         public QuaternionReference(Quaternion value) : base(value) { }
-    }
+    } 
 }

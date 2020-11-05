@@ -14,7 +14,7 @@ namespace ScriptableObjectArchitecture.Editor
         {
             CreateDebugStyle();
         }
-
+        
         /// <summary>
         /// A debug <see cref="GUIStyle"/> that allows for identification of EditorGUI Rect issues.
         /// </summary>
@@ -23,7 +23,7 @@ namespace ScriptableObjectArchitecture.Editor
 
         private static PropertyDrawerGraph _propertyDrawerGraph;
         private static BindingFlags _fieldBindingsFlag = BindingFlags.Instance | BindingFlags.NonPublic;
-
+        
         private class AssemblyDefinitionSurrogate
         {
             public string name = "";
@@ -62,7 +62,7 @@ namespace ScriptableObjectArchitecture.Editor
                 if (path.StartsWith("Assets/"))
                 {
                     string fullPath = Application.dataPath + path.Remove(0, path.IndexOf('/'));
-
+                    
                     targetList.Add(GetNameValueFromAssemblyDefinition(fullPath));
                 }
             }

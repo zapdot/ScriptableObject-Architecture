@@ -5,5 +5,5 @@
     {
         public UIntReference() : base() { }
         public UIntReference(uint value) : base(value) { }
-    }
+    } 
 }

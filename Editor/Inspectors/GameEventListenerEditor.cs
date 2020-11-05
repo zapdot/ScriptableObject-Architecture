@@ -22,5 +22,5 @@ namespace ScriptableObjectArchitecture.Editor
                 _raiseMethod.Invoke(target, null);
             }
         }
-    }
+    } 
 }

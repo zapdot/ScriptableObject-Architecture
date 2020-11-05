@@ -82,5 +82,5 @@ namespace ScriptableObjectArchitecture
     }
 
     //Can't get property drawer to work with generic arguments
-    public abstract class BaseReference { }
+    public abstract class BaseReference { } 
 }

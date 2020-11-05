@@ -7,5 +7,5 @@ namespace ScriptableObjectArchitecture
     {
         public GameObjectReference() : base() { }
         public GameObjectReference(GameObject value) : base(value) { }
-    }
+    } 
 }

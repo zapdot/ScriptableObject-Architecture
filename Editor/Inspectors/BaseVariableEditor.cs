@@ -49,8 +49,16 @@ namespace ScriptableObjectArchitecture.Editor
         {
             using (var scope = new EditorGUI.ChangeCheckScope())
             {
-                string content = "Cannot display value. No PropertyDrawer for (" + Target.Type + ") [" + Target.ToString() + "]";
-                GenericPropertyDrawer.DrawPropertyDrawerLayout(Target.Type, new GUIContent("Value"), _valueProperty, new GUIContent(content, content));
+                // If clamped and we can draw better clamp controls for this variable's type, do so. Otherwise default to showing
+                // the default property drawer for that type.
+                if (_isClamped.boolValue && ClampValueHelper.CanDrawClampRange(_valueProperty))
+                {
+                    ClampValueHelper.DrawClampRangeLayout(_valueProperty, _minValueProperty, _maxValueProperty);
+                }
+                else
+                {
+                    GenericPropertyDrawer.DrawPropertyDrawerLayout(_valueProperty, Target.Type);
+                }
 
                 if (scope.changed)
                 {

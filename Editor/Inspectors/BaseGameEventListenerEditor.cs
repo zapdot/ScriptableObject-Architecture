@@ -69,5 +69,5 @@ namespace ScriptableObjectArchitecture.Editor
 
             EditorGUILayout.Space();
         }
-    }
+    } 
 }

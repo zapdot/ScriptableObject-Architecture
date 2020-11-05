@@ -5,5 +5,5 @@
     {
         public CharReference() : base() { }
         public CharReference(char value) : base(value) { }
-    }
+    } 
 }

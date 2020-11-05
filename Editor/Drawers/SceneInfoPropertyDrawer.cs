@@ -1,6 +1,10 @@
 ﻿using UnityEditor;
 using UnityEngine;
 
+#if ODIN_INSPECTOR
+using Sirenix.Utilities.Editor;
+#endif
+
 namespace ScriptableObjectArchitecture.Editor
 {
     [CustomPropertyDrawer(typeof(SceneInfo))]
@@ -10,7 +14,7 @@ namespace ScriptableObjectArchitecture.Editor
         private const string SCENE_NAME_PROPERTY = "_sceneName";
         private const string SCENE_INDEX_PROPERTY = "_sceneIndex";
         private const string SCENE_ENABLED_PROPERTY = "_isSceneEnabled";
-        private const int FIELD_COUNT = 4;
+        private const int FIELD_COUNT = 5;
 
         public override void OnGUI(Rect propertyRect, SerializedProperty property, GUIContent label)
         {
@@ -29,7 +33,13 @@ namespace ScriptableObjectArchitecture.Editor
             };
 
             var oldSceneAsset = AssetDatabase.LoadAssetAtPath<SceneAsset>(sceneNameProperty.stringValue);
+
+            #if ODIN_INSPECTOR
+            var sceneAsset = SirenixEditorFields.UnityObjectField(sceneAssetRect, oldSceneAsset, typeof(SceneAsset), false);
+            #else
             var sceneAsset = EditorGUI.ObjectField(sceneAssetRect, oldSceneAsset, typeof(SceneAsset), false);
+            #endif
+
             var sceneAssetPath = AssetDatabase.GetAssetPath(sceneAsset);
             if (sceneNameProperty.stringValue != sceneAssetPath)
             {
@@ -70,7 +80,7 @@ namespace ScriptableObjectArchitecture.Editor
 
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
         {
-            return EditorGUIUtility.singleLineHeight * FIELD_COUNT;
+            return EditorGUIUtility.singleLineHeight * FIELD_COUNT + ((FIELD_COUNT - 1) * EditorGUIUtility.standardVerticalSpacing);
         }
     }
 }

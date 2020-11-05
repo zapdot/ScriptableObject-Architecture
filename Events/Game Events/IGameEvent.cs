@@ -7,12 +7,11 @@
         void RemoveListener(IGameEventListener<T> listener);
         void RemoveAll();
     }
-
     public interface IGameEvent
     {
         void Raise();
         void AddListener(IGameEventListener listener);
         void RemoveListener(IGameEventListener listener);
         void RemoveAll();
-    }
+    } 
 }

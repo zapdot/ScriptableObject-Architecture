@@ -82,5 +82,5 @@ namespace ScriptableObjectArchitecture
         public T[] ToArray() {
             return _list.ToArray();
         }
-    }
+    } 
 }

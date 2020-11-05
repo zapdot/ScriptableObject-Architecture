@@ -5,5 +5,5 @@
     {
         public BoolReference() : base() { }
         public BoolReference(bool value) : base(value) { }
-    }
+    } 
 }

@@ -9,5 +9,5 @@ namespace ScriptableObjectArchitecture
         order = SOArchitecture_Utility.ASSET_MENU_ORDER_EVENTS + 17)]
     public sealed class ULongGameEvent : GameEventBase<ulong>
     {
-    }
+    } 
 }

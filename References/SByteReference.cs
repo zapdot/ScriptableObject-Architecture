@@ -5,5 +5,5 @@
     {
         public SByteReference() : base() { }
         public SByteReference(sbyte value) : base(value) { }
-    }
+    } 
 }

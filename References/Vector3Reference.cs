@@ -7,5 +7,5 @@ namespace ScriptableObjectArchitecture
     {
         public Vector3Reference() : base() { }
         public Vector3Reference(Vector3 value) : base(value) { }
-    }
+    } 
 }

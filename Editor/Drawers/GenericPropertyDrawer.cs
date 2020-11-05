@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using Object = UnityEngine.Object;
@@ -7,75 +8,96 @@ namespace ScriptableObjectArchitecture.Editor
 {
     public static class GenericPropertyDrawer
     {
-        public static void DrawPropertyDrawer(Rect rect, GUIContent label, Type type, SerializedProperty property, GUIContent errorLabel)
-        {
-            if (SOArchitecture_EditorUtility.HasPropertyDrawer(type) || typeof(Object).IsAssignableFrom(type) || type.IsEnum)
-            {
-                //Unity doesn't like it when you have scene objects on assets,
-                //so we do some magic to display it anyway
-                if (typeof(Object).IsAssignableFrom(type)
-                    && !EditorUtility.IsPersistent(property.objectReferenceValue)
-                    && property.objectReferenceValue != null)
-                {
-                    using (new EditorGUI.DisabledGroupScope(true))
-                    {
-                        EditorGUI.ObjectField(rect, label, property.objectReferenceValue, type, false);
-                    }
-                }
-                else if (type.IsAssignableFrom(typeof(Quaternion)))
-                {
-                    Vector4 displayValue = property.quaternionValue.ToVector4();
+        private const string DefaultErrorLabelText = "Type is not drawable! Please implement property drawer";
+        private const string NullPropertyText = "SerializedProperty is null. Your custom type is probably missing the [Serializable] attribute";
 
-                    property.quaternionValue = EditorGUI.Vector4Field(rect, label, displayValue).ToQuaternion();
-                }
-                else if (type.IsAssignableFrom(typeof(Vector4)))
+        public static void DrawPropertyDrawer(Rect rect, SerializedProperty property, Type type, bool drawLabel = true)
+        {
+            if (property == null)
+            {
+                Debug.LogError(NullPropertyText);
+                return;
+            }
+
+            if (SOArchitecture_EditorUtility.HasPropertyDrawer(type))
+            {
+                if(drawLabel)
                 {
-                    property.vector4Value = EditorGUI.Vector4Field(rect, label, property.vector4Value);
+                    EditorGUI.PropertyField(rect, property);
                 }
                 else
                 {
-                    EditorGUI.PropertyField(rect, property, label);
+                    EditorGUI.PropertyField(rect, property, GUIContent.none);
                 }
             }
             else
             {
-                EditorGUI.LabelField(rect, errorLabel);
+                PropertyDrawIterator iter = new PropertyDrawIterator(rect, property.Copy(), drawLabel);
+
+                DrawPropertyDrawerInternal(iter);
             }
         }
-
-        public static void DrawPropertyDrawerLayout(Type type, GUIContent label, SerializedProperty property, GUIContent errorLabel)
+        public static void DrawPropertyDrawerLayout(SerializedProperty property, Type type, bool drawLabel = true)
         {
-            if (SOArchitecture_EditorUtility.HasPropertyDrawer(type) || typeof(Object).IsAssignableFrom(type) || type.IsEnum)
+            if(property == null)
             {
-                //Unity doesn't like it when you have scene objects on assets,
-                //so we do some magic to display it anyway
-                if (typeof(Object).IsAssignableFrom(type)
-                    && !EditorUtility.IsPersistent(property.objectReferenceValue)
-                    && property.objectReferenceValue != null)
-                {
-                    using (new EditorGUI.DisabledGroupScope(true))
-                    {
-                        EditorGUILayout.ObjectField(label, property.objectReferenceValue, type, false);
-                    }
-                }
-                else if (type.IsAssignableFrom(typeof(Quaternion)))
-                {
-                    Vector4 displayValue = property.quaternionValue.ToVector4();
+                Debug.LogError(NullPropertyText);
+                return;
+            }
 
-                    property.quaternionValue = EditorGUILayout.Vector4Field(label, displayValue).ToQuaternion();
-                }
-                else if (type.IsAssignableFrom(typeof(Vector4)))
+            if (SOArchitecture_EditorUtility.HasPropertyDrawer(type))
+            {
+                if (drawLabel)
                 {
-                    property.vector4Value = EditorGUILayout.Vector4Field(label, property.vector4Value);
+                    EditorGUILayout.PropertyField(property);
                 }
                 else
                 {
-                    EditorGUILayout.PropertyField(property, label);
+                    EditorGUILayout.PropertyField(property, GUIContent.none);
                 }
             }
             else
             {
-                EditorGUILayout.LabelField(errorLabel);
+                PropertyDrawIteratorLayout iter = new PropertyDrawIteratorLayout(property.Copy(), drawLabel);
+
+                DrawPropertyDrawerInternal(iter);
+            }
+        }
+        private static void DrawPropertyDrawerInternal(IPropertyDrawIterator iter)
+        {
+            do
+            {
+                iter.Draw();
+            }
+            while (iter.Next());
+
+            iter.End();
+        }
+        public static float GetHeight(SerializedProperty property, Type type)
+        {
+            if (SOArchitecture_EditorUtility.HasPropertyDrawer(type))
+            {
+                return EditorGUI.GetPropertyHeight(property);
+            }
+            else
+            {
+                property = property.Copy();
+
+                int elements = 0;
+
+                PropertyIterator iter = new PropertyIterator(property);
+                do
+                {
+                    ++elements;
+                }
+                while (iter.Next());
+
+                iter.End();
+
+                float spacing = (elements - 1) * EditorGUIUtility.standardVerticalSpacing;
+                float elementHeights = elements * EditorGUIUtility.singleLineHeight;
+
+                return spacing + elementHeights;
             }
         }
     }
