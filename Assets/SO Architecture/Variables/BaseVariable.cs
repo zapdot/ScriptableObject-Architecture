@@ -5,9 +5,9 @@ namespace ScriptableObjectArchitecture
 {
     public abstract class BaseVariable : GameEventBase
     {
-        public abstract bool IsClamped { get; }
+        public abstract bool IsClamped { get; internal set; }
         public abstract bool Clampable { get; }
-        public abstract bool ReadOnly { get; }
+        public abstract bool ReadOnly { get; internal set; }
         public abstract System.Type Type { get; }
         public abstract object BaseValue { get; set; }
     }
@@ -38,6 +38,7 @@ namespace ScriptableObjectArchitecture
                     return default(T);
                 }
             }
+            internal set { _minClampedValue = value; }
         }
         public virtual T MaxClampValue
         {
@@ -52,11 +53,23 @@ namespace ScriptableObjectArchitecture
                     return default(T);
                 }
             }
+            internal set { _maxClampedValue = value; }
         }
 
         public override bool Clampable { get { return false; } }
-        public override bool ReadOnly { get { return _readOnly; } }
-        public override bool IsClamped { get { return _isClamped; } }
+
+        public override bool ReadOnly
+        {
+            get { return _readOnly; }
+            internal set { _readOnly = value; }
+        }
+
+        public override bool IsClamped
+        {
+            get { return _isClamped; }
+            internal set { _isClamped = value; }
+        }
+
         public override System.Type Type { get { return typeof(T); } }
         public override object BaseValue
         {
@@ -132,7 +145,7 @@ namespace ScriptableObjectArchitecture
             T oldValue = _value;
             T newValue = base.SetValue(value);
 
-            if (!newValue.Equals(oldValue))
+            if (!newValue.Equals(oldValue) && _event != null)
                 _event.Invoke(newValue);
 
             return newValue;

@@ -1,6 +1,10 @@
 ﻿using UnityEditor;
 using UnityEngine;
 
+#if ODIN_INSPECTOR
+using Sirenix.Utilities.Editor;
+#endif
+
 namespace ScriptableObjectArchitecture.Editor
 {
     [CustomPropertyDrawer(typeof(SceneInfo))]
@@ -29,7 +33,13 @@ namespace ScriptableObjectArchitecture.Editor
             };
 
             var oldSceneAsset = AssetDatabase.LoadAssetAtPath<SceneAsset>(sceneNameProperty.stringValue);
+
+            #if ODIN_INSPECTOR
+            var sceneAsset = SirenixEditorFields.UnityObjectField(sceneAssetRect, oldSceneAsset, typeof(SceneAsset), false);
+            #else
             var sceneAsset = EditorGUI.ObjectField(sceneAssetRect, oldSceneAsset, typeof(SceneAsset), false);
+            #endif
+
             var sceneAssetPath = AssetDatabase.GetAssetPath(sceneAsset);
             if (sceneNameProperty.stringValue != sceneAssetPath)
             {

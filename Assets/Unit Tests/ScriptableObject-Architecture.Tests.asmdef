@@ -1,0 +1,17 @@
+{
+    "name": "ScriptableObject-Architecture.Tests",
+    "references": [
+        "GUID:63ebd60d5c68886498ecfee04b5d6a12"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
