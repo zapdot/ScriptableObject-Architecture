@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.Events;
 
 namespace ScriptableObjectArchitecture
@@ -21,8 +22,11 @@ namespace ScriptableObjectArchitecture
             }
             set
             {
-                _value = SetValue(value);
-                Raise();
+                // If the value was changed as a result of calling SetValue, raise the event.
+                if (SetValue(value))
+                {
+                    Raise();
+                }
             }
         }
         public virtual T MinClampValue
@@ -79,7 +83,7 @@ namespace ScriptableObjectArchitecture
             }
             set
             {
-                _value = SetValue((T)value);
+                SetValue((T)value);
                 Raise();
             }
         }
@@ -97,24 +101,34 @@ namespace ScriptableObjectArchitecture
         [SerializeField]
         protected T _maxClampedValue = default(T);
 
-        public virtual T SetValue(BaseVariable<T> value)
+        protected virtual bool SetValue(BaseVariable<T> value)
         {
             return SetValue(value.Value);
         }
-        public virtual T SetValue(T value)
+
+        protected virtual bool SetValue(T value)
         {
+            var didValueChange = false;
+            T newValue = value;
+
             if (_readOnly)
             {
                 RaiseReadonlyWarning();
-                return _value;
+                newValue = _value;
             }
             else if(Clampable && IsClamped)
             {
-                return ClampValue(value);
+                newValue = ClampValue(value);
             }
 
-            return value;
-        }        
+            if (!EqualityComparer<T>.Default.Equals(_value, newValue))
+            {
+                didValueChange = true;
+                _value = newValue;
+            }
+
+            return didValueChange;
+        }
         protected virtual T ClampValue(T value)
         {
             return value;
@@ -140,15 +154,22 @@ namespace ScriptableObjectArchitecture
         [SerializeField]
         private TEvent _event = default(TEvent);
 
-        public override T SetValue(T value)
+        protected override bool SetValue(T value)
         {
+            var result = false;
             T oldValue = _value;
-            T newValue = base.SetValue(value);
+
+            base.SetValue(value);
+
+            T newValue = _value;
 
             if (!newValue.Equals(oldValue) && _event != null)
+            {
+                result = true;
                 _event.Invoke(newValue);
+            }
 
-            return newValue;
+            return result;
         }
         public void AddListener(UnityAction<T> callback)
         {
