@@ -163,10 +163,14 @@ namespace ScriptableObjectArchitecture
 
             T newValue = _value;
 
-            if (!newValue.Equals(oldValue) && _event != null)
+            if (!EqualityComparer<T>.Default.Equals(oldValue, newValue))
             {
                 result = true;
-                _event.Invoke(newValue);
+
+                if (_event != null)
+                {
+                    _event.Invoke(newValue);
+                }
             }
 
             return result;
