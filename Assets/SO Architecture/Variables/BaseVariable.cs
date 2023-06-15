@@ -129,6 +129,20 @@ namespace ScriptableObjectArchitecture
 
             return didValueChange;
         }
+
+        #if UNITY_EDITOR
+
+        /// <summary>
+        /// Forces a value change for this variable regardless of readonly or clamped status. Should only be used in
+        /// the editor for scripting purposes.
+        /// </summary>
+        public void ForceValueUpdate(T value)
+        {
+            _value = value;
+        }
+
+        #endif
+
         protected virtual T ClampValue(T value)
         {
             return value;
