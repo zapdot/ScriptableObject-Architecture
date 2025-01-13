@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a29f67b488b4458983fd973bbda8c8fa, type: 3}
+  m_Name: PackageManifestConfig
+  m_EditorClassIdentifier: 
+  packageSourcePaths:
+  - Assets/SOArchitecture
+  packageIgnorePaths: []
+  packageDestinationPath: ../PackageSource
+  legacyPackageDestinationPath: ../Builds
+  packageName: com.danieleverland.scriptableobjectarchitecture
+  displayName: ScriptableObject-Architecture - Zapdot Fork
+  packageVersion: 1.9.2
+  unityVersion: 2021.3
+  description: Makes using Scriptable Objects as a fundamental part of your architecture
+    in Unity super easy
+  category: Tools
+  author:
+    name: Jeff Campbell
+    email: jeff@zapdot.com
+    url: https://zapdot.com
+  keywords:
+  - scriptableobject
+  - architecture
+  - scripting
+  dependencies: []
+  publishConfig:
+    registry: https://npm.pkg.github.com/@zapdot
+  repository:
+    type: git
+    url: https://github.com/zapdot/ScriptableObject-Architecture
+    directory: PackageSource
+  versionConstantsPath: Assets/SOArchitecture/Editor
+  versionTemplateGuid: b57a8502af7424ee9a45341692300cfc
+  _id: 13fa807a-1b2c-45c4-9f70-36b0dc8f6420
