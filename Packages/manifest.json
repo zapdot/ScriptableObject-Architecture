@@ -1,11 +1,11 @@
 {
   "dependencies": {
-    "com.unity.2d.sprite": "1.0.0",
-    "com.unity.ide.rider": "3.0.24",
-    "com.unity.ide.visualstudio": "2.0.18",
-    "com.unity.ide.vscode": "1.2.5",
-    "com.unity.test-framework": "1.1.33",
-    "com.unity.ugui": "1.0.0",
+    "com.jeffcampbellmakesgames.packagetools": "1.6.0",
+    "com.unity.ide.rider": "3.0.34",
+    "com.unity.ide.visualstudio": "2.0.22",
+    "com.unity.test-framework": "1.4.5",
+    "com.unity.ugui": "2.0.0",
+    "com.unity.modules.accessibility": "1.0.0",
     "com.unity.modules.ai": "1.0.0",
     "com.unity.modules.androidjni": "1.0.0",
     "com.unity.modules.animation": "1.0.0",
@@ -37,5 +37,36 @@
     "com.unity.modules.vr": "1.0.0",
     "com.unity.modules.wind": "1.0.0",
     "com.unity.modules.xr": "1.0.0"
-  }
+  },
+  "scopedRegistries": [
+    {
+      "name": "Game Package Registry by Google",
+      "url": "https://unityregistry-pa.googleapis.com",
+      "scopes": [
+        "com.google"
+      ]
+    },
+    {
+      "name": "Zapdot Package Registry",
+      "url": "https://npm.pkg.github.com/@zapdot",
+      "scopes": [
+        "com.zapdot",
+        "com.danieleverland"
+      ]
+    },
+    {
+      "name": "package.openupm.com",
+      "url": "https://package.openupm.com",
+      "scopes": [
+        "com.google.external-dependency-manager",
+        "com.openupm",
+        "com.tayx.graphy",
+        "com.yasirkula.nativegallery",
+        "com.yasirkula.nativeshare",
+        "com.jeffcampbellmakesgames.coc",
+        "com.jeffcampbellmakesgames.genesis",
+        "com.jeffcampbellmakesgames.packagetools"
+      ]
+    }
+  ]
 }
