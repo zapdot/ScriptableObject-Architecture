@@ -8,7 +8,7 @@ namespace ScriptableObjectArchitecture.Editor
 		/// <summary>
 		/// The semantic version
 		/// </summary>
-		public const string VERSION = "1.9.2";
+		public const string VERSION = "1.9.3";
 
 		/// <summary>
 		/// The branch of GIT this package was published from.
@@ -18,16 +18,16 @@ namespace ScriptableObjectArchitecture.Editor
 		/// <summary>
 		/// The current GIT commit hash this package was published on.
 		/// </summary>
-		public const string GIT_COMMIT = "21d0723949e85bc91bdc63ff5631be7e5c20a14a";
+		public const string GIT_COMMIT = "c8c1f187934d5c7150e57d45818b25a2ea78cdf1";
 
 		/// <summary>
 		/// The UTC human-readable date this package was published at.
 		/// </summary>
-		public const string PUBLISH_DATE = "Monday, January 13, 2025";
+		public const string PUBLISH_DATE = "Tuesday, January 28, 2025";
 
 		/// <summary>
 		/// The UTC time this package was published at.
 		/// </summary>
-		public const string PUBLISH_TIME = "01/13/2025 18:29:43";
+		public const string PUBLISH_TIME = "01/28/2025 16:41:53";
 	}
 }

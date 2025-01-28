@@ -15,11 +15,11 @@ MonoBehaviour:
   packageSourcePaths:
   - Assets/SOArchitecture
   packageIgnorePaths: []
-  packageDestinationPath: ../PackageSource
-  legacyPackageDestinationPath: ../Builds
+  packageDestinationPath: 
+  legacyPackageDestinationPath: 
   packageName: com.danieleverland.scriptableobjectarchitecture
   displayName: ScriptableObject-Architecture - Zapdot Fork
-  packageVersion: 1.9.2
+  packageVersion: 1.9.3
   unityVersion: 2021.3
   description: Makes using Scriptable Objects as a fundamental part of your architecture
     in Unity super easy
@@ -38,7 +38,7 @@ MonoBehaviour:
   repository:
     type: git
     url: https://github.com/zapdot/ScriptableObject-Architecture
-    directory: PackageSource
+    directory: Assets/SOArchitecture
   versionConstantsPath: Assets/SOArchitecture/Editor
   versionTemplateGuid: b57a8502af7424ee9a45341692300cfc
   _id: 13fa807a-1b2c-45c4-9f70-36b0dc8f6420
